@@ -34,6 +34,25 @@ namespace MaxProfit
 
             TestInstance.GetMaxProfit(A).ShouldBe(0);
         }
+
+        [Test]
+        public void TwoValueArrayWithEqualValues()
+        {
+            var val = Faker.Random.Int(0, 200000);
+            var A = new[] { val, val };
+
+            TestInstance.GetMaxProfit(A).ShouldBe(0);
+        }
+
+        [Test]
+        public void TwoValueArrayWithLoss()
+        {
+            var val1 = Faker.Random.Int(1, 200000);
+            var val2 = val1 - 1;
+            var A = new[] { val1, val2 };
+
+            TestInstance.GetMaxProfit(A).ShouldBe(0);
+        }
     }
 
     public class MaxProfitFinder
