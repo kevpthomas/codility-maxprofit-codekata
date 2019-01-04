@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using NUnit.Framework;
 using Shouldly;
 // ReSharper disable InconsistentNaming
@@ -18,6 +19,8 @@ namespace MaxProfit
         // return 0 if array has 2 entries with 2nd entry < 1st entry
         // return 0 if array has 2 entries with 2nd entry = 1st entry
         // return > 0 if array has 2 entries with 2nd entry > 1st entry
+        // exception if array length > 400000
+        // exception if any value in array > 200000
 
         [Test]
         public void EmptyArray()
@@ -53,6 +56,16 @@ namespace MaxProfit
 
             TestInstance.GetMaxProfit(A).ShouldBe(0);
         }
+
+        [Test]
+        public void TwoValueArrayWithProfit()
+        {
+            var val1 = Faker.Random.Int(0, 199999);
+            var val2 = val1 + 1;
+            var A = new[] { val1, val2 };
+
+            TestInstance.GetMaxProfit(A).ShouldBe(val2 - val1);
+        }
     }
 
     public class MaxProfitFinder
@@ -61,7 +74,10 @@ namespace MaxProfit
 
         public int GetMaxProfit(int[] A)
         {
-            return 0;
+            if (A.Length < 2) return 0;
+
+            var profitOrLoss = A[1] - A[0];
+            return profitOrLoss > 0 ? profitOrLoss : 0;
         }
     }
 }
