@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Linq;
 
 // ReSharper disable InconsistentNaming
@@ -14,27 +15,31 @@ namespace MaxProfit
 
         public int GetMaxProfit(int[] A)
         {
-            if (A.Length > MaxLength) 
+            var aLen = A.Length;
+
+            if (aLen > MaxLength) 
                 throw new ArgumentException($"Supplied array must have no more than {MaxLength} members but had {A.Length}.", $"{nameof(A)}");
             
-            if (A.Length < 2) return 0;
+            if (aLen < 2) return 0;
 
             var maxValueInArray = A.Max();
             if (maxValueInArray > MaxValue) 
                 throw new ArgumentException($"Supplied array must contain no value greater than {MaxValue} but contains value {maxValueInArray}.", $"{nameof(A)}");
 
-            var profitOrLoss = A[1] - A[0];
-            //var minValue = A.Min();
-            //var minValuePosition = Array.IndexOf(A, minValue);
+            var max = 0;
+            var profitOrLoss = 0;
 
-            //var maxValue = A.Max();
-            //var maxValuePosition = Array.IndexOf(A, maxValue);
+            for(var i = aLen-1; i >= 0; --i)
+            {
+                if(A[i] > max)
+                    max = A[i];
 
-            //var profitOrLoss = minValuePosition > maxValuePosition 
-            //    ? minValue - maxValue 
-            //    : maxValue - minValue;
+                var tmpResult = max - A[i];        
+                if(tmpResult > profitOrLoss)
+                    profitOrLoss = tmpResult;
+            }
 
-            return profitOrLoss > 0 ? profitOrLoss : 0;
+            return profitOrLoss;
         }
     }
 }

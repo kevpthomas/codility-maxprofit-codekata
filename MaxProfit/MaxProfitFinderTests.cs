@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using NUnit.Framework;
 using Shouldly;
 
@@ -124,24 +125,24 @@ namespace MaxProfit
             TestInstance.GetMaxProfit(A).ShouldBe(356);
         }
 
-        //[Test]
-        //public void LargeArrayWithProfit()
-        //{
-        //    const int length = 100;
-        //    var valNext = 0;
+        [Test]
+        public void LargeArrayWithProfit()
+        {
+            const int length = 100;
+            var valNext = 0;
 
-        //    var valueList = new List<int>(length) { valNext };
-        //    for (var i = 0; i < length - 1; i++)
-        //    {
-        //        valNext = Faker.Random.Int(1, MaxProfitFinder.MaxValue);
-        //        valueList.Add(valNext);
-        //    }
+            var valueList = new List<int>(length) { valNext };
+            for (var i = 0; i < length - 1; i++)
+            {
+                valNext = Faker.Random.Int(1, MaxProfitFinder.MaxValue);
+                valueList.Add(valNext);
+            }
 
-        //    var maxValue = valueList.Max();
+            var maxValue = valueList.Max();
 
-        //    var A = valueList.ToArray();
+            var A = valueList.ToArray();
 
-        //    TestInstance.GetMaxProfit(A).ShouldBe(maxValue);
-        //}
+            TestInstance.GetMaxProfit(A).ShouldBe(maxValue);
+        }
     }
 }
